@@ -1,5 +1,6 @@
 require "magnum/addons/hipchat/version"
 require "magnum/addons/hipchat/error"
+require "magnum/addons/hipchat/message"
 
 require "faraday"
 require "hashr"
@@ -17,11 +18,8 @@ module Magnum
       end
 
       def run(build)
-        unless build.kind_of?(Hash)
-          raise Error, "Hash required"
-        end
-
-        deliver(format_message(Hashr.new(build)))
+        message = Message.new(build)
+        deliver(message.to_s)
       end
 
       private
@@ -56,23 +54,6 @@ module Magnum
         end
 
         true
-      end
-
-      def format_message(build)
-        lines = [
-          "<strong>#{ build.title }</strong>",
-          "Commit: <a href='#{ build.commit_url }'>#{ build.message }</a>",
-          "Branch: #{ build.branch }",
-          "Author: #{ build.author }",
-          "Duration: #{ build.duration_string }",
-          "<a href='#{ build.build_url }>View Build</a>"
-        ]
-
-        if build.compare_url
-          lines << "<a href='#{ build.compare_url }'>View Diff</a>"
-        end
-
-        lines.join("<br/>")
       end
     end
   end
