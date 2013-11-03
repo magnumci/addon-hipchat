@@ -19,12 +19,12 @@ describe Magnum::Addons::Hipchat do
 
     it "requires hash object" do
       expect { addon.run(nil) }.
-        to raise_error Magnum::Addons::Hipchat::Error, "Hash required"
+        to raise_error ArgumentError, "Hash required"
     end
 
     it "sends notification" do
       stub_request(:post, "https://api.hipchat.com/v2/room/12345/message").
-         with(:body => "{\"message\":\"<strong>[PASS] slack-notify #3 (master - 6f102f22) by Dan Sosedoff</strong><br/>Commit: <a href='https://github.com/sosedoff/slack-notify/commit/6f102f22caac46945e16ada4f50df29a70ab2799'>Version bump: 0.1.1</a><br/>Branch: master<br/>Author: Dan Sosedoff<br/>Duration: 11s<br/><a href='https://magnum-ci.com/projects/201/builds/8683>View Build</a><br/><a href='https://github.com/sosedoff/slack-notify/compare/42f7b7cdfc4b...6f102f22caac'>View Diff</a>\",\"message_format\":\"html\"}",
+         with(:body => fixture("payload.json"),
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer token', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
          to_return(:status => 204, :body => "", :headers => {})
 
@@ -34,7 +34,7 @@ describe Magnum::Addons::Hipchat do
     context "when api token is invalid" do
       before do
         stub_request(:post, "https://api.hipchat.com/v2/room/12345/message").
-         with(:body => "{\"message\":\"<strong>[PASS] slack-notify #3 (master - 6f102f22) by Dan Sosedoff</strong><br/>Commit: <a href='https://github.com/sosedoff/slack-notify/commit/6f102f22caac46945e16ada4f50df29a70ab2799'>Version bump: 0.1.1</a><br/>Branch: master<br/>Author: Dan Sosedoff<br/>Duration: 11s<br/><a href='https://magnum-ci.com/projects/201/builds/8683>View Build</a><br/><a href='https://github.com/sosedoff/slack-notify/compare/42f7b7cdfc4b...6f102f22caac'>View Diff</a>\",\"message_format\":\"html\"}",
+         with(:body => fixture("payload.json"),
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer token', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
          to_return(:status => 401, :body => fixture("unauthorized.json"), :headers => {})
       end
@@ -48,7 +48,7 @@ describe Magnum::Addons::Hipchat do
     context "when room id is invalid" do
       before do
         stub_request(:post, "https://api.hipchat.com/v2/room/12345/message").
-         with(:body => "{\"message\":\"<strong>[PASS] slack-notify #3 (master - 6f102f22) by Dan Sosedoff</strong><br/>Commit: <a href='https://github.com/sosedoff/slack-notify/commit/6f102f22caac46945e16ada4f50df29a70ab2799'>Version bump: 0.1.1</a><br/>Branch: master<br/>Author: Dan Sosedoff<br/>Duration: 11s<br/><a href='https://magnum-ci.com/projects/201/builds/8683>View Build</a><br/><a href='https://github.com/sosedoff/slack-notify/compare/42f7b7cdfc4b...6f102f22caac'>View Diff</a>\",\"message_format\":\"html\"}",
+         with(:body => fixture("payload.json"), 
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer token', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
          to_return(:status => 404, :body => fixture("room_not_found.json"), :headers => {})
       end

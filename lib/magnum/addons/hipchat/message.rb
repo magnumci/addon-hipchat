@@ -6,9 +6,9 @@ module Magnum
 
         def initialize(build)
           unless build.kind_of?(Hash)
-            raise Error, "Hash required"
+            raise ArgumentError, "Hash required"
           end
-          
+
           @build = Hashr.new(build)
         end
 
@@ -19,14 +19,14 @@ module Magnum
             "Branch: #{ build.branch }",
             "Author: #{ build.author }",
             "Duration: #{ build.duration_string }",
-            "<a href='#{ build.build_url }>View Build</a>"
+            "<a href='#{ build.build_url }'>View Build</a>"
           ]
 
           if build.compare_url
             lines << "<a href='#{ build.compare_url }'>View Diff</a>"
           end
 
-          lines.join("<br/>")
+          lines.join("<br/>\n")
         end
       end
     end
