@@ -18,10 +18,10 @@ module Magnum
 
       def run(build)
         unless build.kind_of?(Hash)
-          raise "Hash required"
+          raise Error, "Hash required"
         end
 
-        make_api_request(format_message(Hashr.new(build)))
+        deliver(format_message(Hashr.new(build)))
       end
 
       private
@@ -45,6 +45,17 @@ module Magnum
           request.headers = headers
           request.body    = JSON.dump(payload)
         end
+      end
+
+      def deliver(message)
+        response = make_api_request(message)
+        json = JSON.load(response.body)
+
+        unless response.success?
+          raise Error, json["error"]["message"]
+        end
+
+        true
       end
 
       def format_message(build)
