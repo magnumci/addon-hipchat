@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["dan.sosedoff@gmail.com"]
   spec.description   = %q{Hipchat notifier addon for Magnum CI}
   spec.summary       = %q{Hipchat notifier addon for Magnum CI}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/magnumci/addon-hipchat"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
