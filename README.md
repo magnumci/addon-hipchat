@@ -1,19 +1,18 @@
-# magnum-addon-hipchat
+# Hipchat Addon
 
-[Hipchat](http://hipchat.com) notifier addon for Magnum CI
+Send [Magnum CI](http://magnum-ci.com) build notifications to a [Hipchat](http://hipchat.com) room
 
 ## Usage
 
-Load:
+Example:
 
 ```ruby
-require "magnum/addon/hipchat"
-```
+require "magnum/addons/hipchat"
 
-Send notification:
-
-```ruby
+# Initialize addon
 addon = Magnum::Addon::Hipchat.new(api_token: "token", room: "room")
+
+# Send build payload
 addon.run(build_payload)
 ```
 
