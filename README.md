@@ -21,4 +21,18 @@ addon.run(build_payload)
 Available options:
 
 - `api_token` - Hipchat API v2 token (v1 is not supported)
-- `room` - Hipchat room ID
+- `room`      - Hipchat room ID
+
+## Testing
+
+Execute test suite:
+
+```
+bundle exec rake test
+```
+
+## License
+
+Copyright (c) 2013 Dan Sosedoff, Magnum CI
+
+MIT License
