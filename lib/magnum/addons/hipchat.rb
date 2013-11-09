@@ -26,7 +26,6 @@ module Magnum
 
       def connection
         @connection ||= Faraday.new("https://api.hipchat.com", {}) do |c|
-          # c.use(Faraday::Response::Logger)
           c.adapter(Faraday.default_adapter)
         end
       end
