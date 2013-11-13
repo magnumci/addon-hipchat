@@ -26,7 +26,7 @@ describe Magnum::Addons::Hipchat::Message do
     end
 
     it "includes commit message" do
-      expect(result).to include "Version bump: 0.1.1"
+      expect(result).to include "Commit: <a href='https://github.com/sosedoff/slack-notify/commit/6f102f22caac46945e16ada4f50df29a70ab2799'>Version bump: 0.1.1</a>"
     end
 
     it "includes branch" do
