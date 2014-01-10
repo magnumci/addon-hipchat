@@ -31,7 +31,7 @@ module Magnum
       end
 
       def make_api_request(message)
-        path    = "/v2/room/#{@room}/message"
+        path    = "/v2/room/#{@room}/notification"
         payload = { message: message, message_format: "html" }
         headers = {
           "Authorization" => "Bearer #{@api_token}",

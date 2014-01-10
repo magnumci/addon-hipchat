@@ -23,7 +23,7 @@ describe Magnum::Addons::Hipchat do
     end
 
     it "sends notification" do
-      stub_request(:post, "https://api.hipchat.com/v2/room/12345/message").
+      stub_request(:post, "https://api.hipchat.com/v2/room/12345/notification").
          with(:body => fixture("payload.json"),
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer token', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
          to_return(:status => 204, :body => "", :headers => {})
@@ -33,7 +33,7 @@ describe Magnum::Addons::Hipchat do
 
     context "when api token is invalid" do
       before do
-        stub_request(:post, "https://api.hipchat.com/v2/room/12345/message").
+        stub_request(:post, "https://api.hipchat.com/v2/room/12345/notification").
          with(:body => fixture("payload.json"),
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer token', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
          to_return(:status => 401, :body => fixture("unauthorized.json"), :headers => {})
@@ -47,7 +47,7 @@ describe Magnum::Addons::Hipchat do
 
     context "when room id is invalid" do
       before do
-        stub_request(:post, "https://api.hipchat.com/v2/room/12345/message").
+        stub_request(:post, "https://api.hipchat.com/v2/room/12345/notification").
          with(:body => fixture("payload.json"), 
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer token', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
          to_return(:status => 404, :body => fixture("room_not_found.json"), :headers => {})
