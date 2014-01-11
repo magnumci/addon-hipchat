@@ -24,9 +24,14 @@ describe Magnum::Addons::Hipchat do
 
     it "sends notification" do
       stub_request(:post, "https://api.hipchat.com/v2/room/12345/notification").
-         with(:body => fixture("payload.json"),
-              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer token', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
-         to_return(:status => 204, :body => "", :headers => {})
+        with(
+          body: fixture("payload.json"),
+          headers: {
+            "Authorization" => "Bearer token", 
+            "Content-Type"  => "application/json"
+          }
+        ).
+        to_return(status: 204, body: "")
 
       addon.run(payload)
     end
@@ -34,9 +39,14 @@ describe Magnum::Addons::Hipchat do
     context "when api token is invalid" do
       before do
         stub_request(:post, "https://api.hipchat.com/v2/room/12345/notification").
-         with(:body => fixture("payload.json"),
-              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer token', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
-         to_return(:status => 401, :body => fixture("unauthorized.json"), :headers => {})
+          with(
+            body: fixture("payload.json"),
+            headers: {
+              "Authorization" => "Bearer token",
+              "Content-Type"  => "application/json"
+            }
+          ).
+          to_return(status: 401, body: fixture("unauthorized.json"))
       end
 
       it "raises error" do
@@ -48,9 +58,14 @@ describe Magnum::Addons::Hipchat do
     context "when room id is invalid" do
       before do
         stub_request(:post, "https://api.hipchat.com/v2/room/12345/notification").
-         with(:body => fixture("payload.json"), 
-              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer token', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
-         to_return(:status => 404, :body => fixture("room_not_found.json"), :headers => {})
+          with(
+            body: fixture("payload.json"),
+            headers: {
+              "Authorization" => "Bearer token",
+              "Content-Type"  => "application/json"
+            }
+          ).
+          to_return(status: 404, body: fixture("room_not_found.json"))
       end
 
       it "raises error" do
