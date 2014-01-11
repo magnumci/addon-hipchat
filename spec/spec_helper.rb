@@ -19,3 +19,14 @@ end
 def fixture(file)
   File.read(File.join(fixture_path, file))
 end
+
+def stub_api(token, room, body)
+  stub_request(:post, "https://api.hipchat.com/v2/room/#{room}/notification").
+    with(
+      body: body,
+      headers: {
+        "Authorization" => "Bearer #{token}",
+        "Content-Type"  => "application/json"
+      }
+    )
+end

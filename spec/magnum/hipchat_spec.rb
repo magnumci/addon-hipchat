@@ -23,29 +23,15 @@ describe Magnum::Addons::Hipchat do
     end
 
     it "sends notification" do
-      stub_request(:post, "https://api.hipchat.com/v2/room/12345/notification").
-        with(
-          body: fixture("payload.json"),
-          headers: {
-            "Authorization" => "Bearer token", 
-            "Content-Type"  => "application/json"
-          }
-        ).
+      stub_api("token", "12345", fixture("payload.json")).
         to_return(status: 204, body: "")
-
+        
       addon.run(payload)
     end
 
     context "when api token is invalid" do
       before do
-        stub_request(:post, "https://api.hipchat.com/v2/room/12345/notification").
-          with(
-            body: fixture("payload.json"),
-            headers: {
-              "Authorization" => "Bearer token",
-              "Content-Type"  => "application/json"
-            }
-          ).
+        stub_api("token", "12345", fixture("payload.json")).
           to_return(status: 401, body: fixture("unauthorized.json"))
       end
 
@@ -57,14 +43,7 @@ describe Magnum::Addons::Hipchat do
 
     context "when room id is invalid" do
       before do
-        stub_request(:post, "https://api.hipchat.com/v2/room/12345/notification").
-          with(
-            body: fixture("payload.json"),
-            headers: {
-              "Authorization" => "Bearer token",
-              "Content-Type"  => "application/json"
-            }
-          ).
+        stub_api("token", "12345", fixture("payload.json")).
           to_return(status: 404, body: fixture("room_not_found.json"))
       end
 
