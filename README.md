@@ -2,6 +2,8 @@
 
 Send [Magnum CI](http://magnum-ci.com) build notifications to a [Hipchat](http://hipchat.com) room
 
+![Build Status](https://magnum-ci.com/status/eec71210ee9e5dac3ba8aa4a9205f66e.png)
+
 ## Usage
 
 Example:
