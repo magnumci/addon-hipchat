@@ -31,16 +31,9 @@ module Magnum
       end
 
       def make_api_request(message)
-        path    = "/v2/room/#{@room}/notification"
-        payload = { message: message, message_format: "html" }
-        headers = {
-          "Authorization" => "Bearer #{@api_token}",
-          "Content-Type"  => "application/json"
-        }
- 
-        connection.send(:post, path) do |request|
+        connection.send(:post, "/v2/room/#{@room}/notification") do |request|
           request.headers = headers
-          request.body    = JSON.dump(payload)
+          request.body    = payload(message)
         end
       end
 
@@ -53,6 +46,23 @@ module Magnum
         end
 
         true
+      end
+
+      def payload(message)
+        hash = {
+          message: message,
+          message_format: "html",
+          notify: true
+        }
+
+        JSON.dump(hash)
+      end
+
+      def headers
+        {
+          "Authorization" => "Bearer #{@api_token}",
+          "Content-Type"  => "application/json"
+        }
       end
     end
   end
