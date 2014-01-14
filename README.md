@@ -2,7 +2,8 @@
 
 Send [Magnum CI](http://magnum-ci.com) build notifications to a [Hipchat](http://hipchat.com) room
 
-![Build Status](https://magnum-ci.com/status/eec71210ee9e5dac3ba8aa4a9205f66e.png)
+![Build Status](https://magnum-ci.com/status/eec71210ee9e5dac3ba8aa4a9205f66e.png) 
+[![Code Climate](https://codeclimate.com/github/magnumci/addon-hipchat.png)](https://codeclimate.com/github/magnumci/addon-hipchat)
 
 ## Usage
 
@@ -20,10 +21,18 @@ addon.run(build_payload)
 
 ## Configuration
 
+NOTE: This addon only supports Hipchat API v2 token
+
 Available options:
 
-- `api_token` - Hipchat API v2 token (v1 is not supported)
-- `room`      - Hipchat room ID
+- `api_token` - API token
+- `room`      - Room ID
+
+## Features
+
+- Colored messages
+- Team notification
+- Build and commit links
 
 ## Testing
 
