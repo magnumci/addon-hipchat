@@ -74,7 +74,7 @@ describe Magnum::Addons::Hipchat::Message do
       expect(result).to include "Author: Dan Sosedoff"
     end
 
-    it "include duration" do
+    it "includes duration" do
       expect(result).to include "Duration: 11s"
     end
 
