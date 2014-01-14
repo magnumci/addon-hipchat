@@ -1,6 +1,9 @@
 require "spec_helper"
 
 describe Magnum::Addons::Hipchat::Message do
+  let(:payload) { JSON.load(fixture("build.json")) }
+  let(:message) { described_class.new(payload) }
+
   describe "#initialize" do
     it "requires hash" do
       expect { described_class.new(nil) }.
@@ -8,10 +11,36 @@ describe Magnum::Addons::Hipchat::Message do
     end
   end
 
+  describe "#color" do
+    let(:result) { message.color }
+
+    context "when build passed" do
+      before { payload["status"] = "pass" }
+
+      it "returns green" do
+        expect(result).to eq "green"
+      end
+    end
+
+    context "when build failed" do
+      before { payload["status"] = "fail" }
+
+      it "returns red" do
+        expect(result).to eq "red"
+      end
+    end
+
+    context "when build errored" do
+      before { payload["status"] = "error" }
+
+      it "returns gray" do
+        expect(result).to eq "gray"
+      end
+    end
+  end
+
   describe "#to_s" do
-    let(:payload) { JSON.load(fixture("build.json")) }
-    let(:message) { described_class.new(payload) }
-    let(:result)  { message.to_s }
+    let(:result) { message.to_s }
 
     it "returns string" do
       expect(result).to be_a String

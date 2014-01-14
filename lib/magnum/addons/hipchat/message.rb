@@ -2,6 +2,12 @@ module Magnum
   module Addons
     class Hipchat
       class Message
+        COLORS = {
+          "pass"  => "green",
+          "fail"  => "red",
+          "error" => "gray"
+        }
+
         attr_reader :build
 
         def initialize(build)
@@ -10,6 +16,10 @@ module Magnum
           end
 
           @build = Hashr.new(build)
+        end
+
+        def color
+          COLORS[@build.status] || "yellow"
         end
 
         def to_s
