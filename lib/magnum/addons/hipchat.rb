@@ -18,8 +18,7 @@ module Magnum
       end
 
       def run(build)
-        message = Message.new(build)
-        deliver(message.to_s)
+        deliver(Message.new(build))
       end
 
       private
@@ -50,9 +49,10 @@ module Magnum
 
       def payload(message)
         hash = {
-          message: message,
+          message: message.to_s,
           message_format: "html",
-          notify: true
+          notify: true,
+          color: message.color
         }
 
         JSON.dump(hash)
