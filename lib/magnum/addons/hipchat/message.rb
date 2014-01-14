@@ -15,7 +15,7 @@ module Magnum
         def to_s
           lines = [
             "<strong>#{ build.title }</strong>",
-            "Commit: <a href='#{ build.commit_url }'>#{ build.message }</a>",
+            "Commit: <a href='#{ build.commit_url }'>#{ commit_message }</a>",
             "Branch: #{ build.branch }",
             "Author: #{ build.author }",
             "Duration: #{ build.duration_string }",
@@ -27,6 +27,12 @@ module Magnum
           end
 
           lines.join("<br/>\n")
+        end
+
+        private
+
+        def commit_message
+          build.message.strip.split("\n").first
         end
       end
     end

@@ -52,5 +52,13 @@ describe Magnum::Addons::Hipchat::Message do
     it "is html formatted" do
       expect(result).to eq fixture("message.html")
     end
+
+    context "whem message includes multiple lines" do
+      let(:payload) { JSON.load(fixture("build_multiline_message.json")) }
+
+      it "includes first line of commit message" do
+        expect(result).to include "Commit: <a href='https://github.com/sosedoff/slack-notify/commit/6f102f22caac46945e16ada4f50df29a70ab2799'>Commit message title</a>"
+      end
+    end
   end
 end
