@@ -12,6 +12,7 @@ module Magnum
       def initialize(options = {})
         @api_token = options[:api_token]
         @room      = options[:room]
+        @from      = options[:from] || "Magnum"
 
         raise Error, "API token required" if @api_token.nil?
         raise Error, "Room ID required"   if @room.nil?
@@ -52,7 +53,8 @@ module Magnum
           message: message.to_s,
           message_format: "html",
           notify: true,
-          color: message.color
+          color: message.color,
+          from: @from
         }
 
         JSON.dump(hash)
