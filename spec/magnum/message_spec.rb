@@ -79,11 +79,11 @@ describe Magnum::Addons::Hipchat::Message do
     end
 
     it "includes view build url" do
-      expect(result).to include "https://magnum-ci.com/projects/201/builds/8683"
+      expect(result).to include "<a href='https://magnum-ci.com/projects/201/builds/8683'>View Build</a>"
     end
 
     it "includes diff view url" do
-      expect(result).to include "https://github.com/sosedoff/slack-notify/compare/42f7b7cdfc4b...6f102f22caac"
+      expect(result).to include "<a href='https://github.com/sosedoff/slack-notify/compare/42f7b7cdfc4b...6f102f22caac'>Commit Diff</a>"
     end
 
     it "is html formatted" do

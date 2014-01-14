@@ -29,12 +29,8 @@ module Magnum
             "Branch: #{ build.branch }",
             "Author: #{ build.author }",
             "Duration: #{ build.duration_string }",
-            "<a href='#{ build.build_url }'>View Build</a>"
+            build_links
           ]
-
-          if build.compare_url
-            lines << "<a href='#{ build.compare_url }'>View Diff</a>"
-          end
 
           lines.join("<br/>\n")
         end
@@ -43,6 +39,16 @@ module Magnum
 
         def commit_message
           build.message.strip.split("\n").first
+        end
+
+        def build_links
+          line = "<a href='#{ build.build_url }'>View Build</a>"
+
+          if build.compare_url
+            line << " - <a href='#{ build.compare_url }'>Commit Diff</a>"
+          end
+
+          line
         end
       end
     end
