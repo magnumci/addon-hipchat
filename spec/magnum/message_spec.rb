@@ -90,7 +90,7 @@ describe Magnum::Addons::Hipchat::Message do
       expect(result).to eq fixture("message.html")
     end
 
-    context "whem message includes multiple lines" do
+    context "when message includes multiple lines" do
       let(:payload) { JSON.load(fixture("build_multiline_message.json")) }
 
       it "includes first line of commit message" do
