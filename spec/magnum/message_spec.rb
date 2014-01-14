@@ -37,6 +37,14 @@ describe Magnum::Addons::Hipchat::Message do
         expect(result).to eq "gray"
       end
     end
+
+    context "on invalid build status" do
+      before { payload["status"] = "foobar" }
+
+      it "returns yellow" do
+        expect(result).to eq "yellow"
+      end
+    end
   end
 
   describe "#to_s" do
