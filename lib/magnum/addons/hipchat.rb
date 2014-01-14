@@ -9,12 +9,12 @@ require "json"
 module Magnum
   module Addons
     class Hipchat
-      def initialize(options={})
+      def initialize(options = {})
         @api_token = options[:api_token]
         @room      = options[:room]
 
         raise Error, "API token required" if @api_token.nil?
-        raise Error, "Room ID required" if @room.nil?
+        raise Error, "Room ID required"   if @room.nil?
       end
 
       def run(build)
